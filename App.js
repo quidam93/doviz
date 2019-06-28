@@ -16,3 +16,6 @@ export default class App extends React.Component {
     }
   }
 
+const style = {
+  
+}
