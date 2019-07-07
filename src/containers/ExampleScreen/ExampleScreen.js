@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, Dimensions, SafeAreaView,StyleSheet } from 'react-native';
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -45,25 +45,25 @@ const ExampleScreen = props => {
                         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                             <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                 <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                    Min Alış Fiyatı
+                                    Min Alış 
                                     </Text>
                                 <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayLowestBuyPrice.toFixed(2)}</Text>
                             </View>
                             <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                 <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                    Min Satış Fiyatı
+                                    Min Satış 
                                     </Text>
                                 <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayLowestSellPrice.toFixed(2)}</Text>
                             </View>
                             <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                 <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                    Maks Alış Fiyatı
+                                    Maks Alış 
                                     </Text>
                                 <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayHighestBuyPrice.toFixed(2)}</Text>
                             </View>
                             <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                 <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                    Maks Satış Fiyatı
+                                    Maks Satış 
                                     </Text>
                                 <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayHighestSellPrice.toFixed(2)}</Text>
                             </View>
@@ -99,25 +99,25 @@ const ExampleScreen = props => {
                             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                                 <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                     <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                        Min Alış Fiyatı
+                                        Min Alış
                                     </Text>
                                     <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayLowestBuyPrice.toFixed(2)}</Text>
                                 </View>
                                 <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                     <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                        Min Satış Fiyatı
+                                        Min Satış
                                     </Text>
                                     <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayLowestSellPrice.toFixed(2)}</Text>
                                 </View>
                                 <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                     <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                        Maks Alış Fiyatı
+                                        Maks Alış
                                     </Text>
                                     <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayHighestBuyPrice.toFixed(2)}</Text>
                                 </View>
                                 <View style={{ alignItems: "center", justifyContent: "center", width: "50%" }}>
                                     <Text style={{ fontSize: 22, fontFamily: "Cochin", fontWeight: "500", paddingTop: 25 }}>
-                                        Maks Satış Fiyatı
+                                        Maks Satış
                                     </Text>
                                     <Text style={{ fontSize: 20, fontFamily: "Cochin", paddingTop: 5 }}>{data.todayHighestSellPrice.toFixed(2)}</Text>
                                 </View>

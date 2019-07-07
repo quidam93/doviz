@@ -1,6 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator,ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, ScrollView, AsyncStorage } from 'react-native';
 import ExampleScreen from '../ExampleScreen/ExampleScreen';
+import CurrencyScreen from '../CurrencyScreen/CurrencyScreen';
+import { NavigationEvents } from 'react-navigation';
+
+let code;
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -11,7 +15,12 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    code = await AsyncStorage.getItem("code");
+    code2 = await JSON.parse(code);
+
+
+
     return fetch('https://api.canlidoviz.com/web/items?marketId=1&type=0')
       .then((Response) => Response.json())
       .then((ResponseJson => {
@@ -24,11 +33,13 @@ export default class HomeScreen extends React.Component {
       .catch((error) => {
         console.log(error)
       })
+
+
   }
 
 
   render() {
-const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
 
     if (this.state.isLoading) {
       return (
@@ -37,26 +48,36 @@ const { navigate } = this.props.navigation;
         </View>
       )
     } else {
+      const keys = Object.keys(code2);
 
       const curRates = this.state.dataSource.map((val, key) => {
-        if (val.code==="USD"||val.code==="EUR"||val.code==="GBP") {
-          return(
-            <ExampleScreen key={key} data={val} index={key} navigasyon={navigate}></ExampleScreen>
-          )
-        }
-            
-          
-         }
+        return (
+          keys.map((item, index) => {
+            if (val.code === item) {
+
+              return (
+                <ExampleScreen key={key} data={val} index={key} navigasyon={navigate}></ExampleScreen>
+              )
+            }
+          })
+        )
+
+      }
       )
+
+
+
+
+
       return (
         <ScrollView horizontal={true} pagingEnabled={true}>
-           {curRates}
+          {curRates}
         </ScrollView>
-        )
-    
+      )
 
 
+
+    }
   }
-}
 }
 
