@@ -19,6 +19,7 @@ const appStack= createStackNavigator(
         screen:CurrencyScreen
     },
     
+    
 })
 
 

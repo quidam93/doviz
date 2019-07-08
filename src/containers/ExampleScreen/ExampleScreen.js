@@ -18,7 +18,7 @@ const ExampleScreen = props => {
       }
 
     return (
-        <SafeAreaView style={{ width: width, height: height, alignItems: "center", justifyContent: "center", backgroundColor: "#f4f4f4" }}>
+        <SafeAreaView style={{ width: width, height: height, alignItems: "center", justifyContent: "center", backgroundColor: "#c7c1b7" }}>
             {data.dailyChangePercentage >= 0 ? (
                 <LinearGradient colors={['#edffe2', '#c9ffa8', '#76ea2e']} style={{ width: width * 0.9, height: height * 0.9, borderRadius: 75, }}>
                     <View style={{ shadowColor: "#000", shadowOffset: { width: 0, height: 12, }, shadowOpacity: 0.58, shadowRadius: 16.00, elevation: 24, }}>

@@ -15,9 +15,16 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  async databaseRefresh() {
+    code = await AsyncStorage.getItem("code");
+    code2 = await JSON.parse(code);
+    console.log(code2);
+  }
+
   async componentDidMount() {
     code = await AsyncStorage.getItem("code");
     code2 = await JSON.parse(code);
+    console.log(code2);
 
 
 
@@ -38,6 +45,33 @@ export default class HomeScreen extends React.Component {
   }
 
 
+  currencyRefresh = (key) => {
+
+    const keys = Object.keys(code2);
+    const curRates = this.state.dataSource.map((val, key1) => {
+      return (
+        keys.map((item, index) => {
+          if (val.code === item) {
+            return (
+              <ExampleScreen key={index} data={val} index={key1} navigasyon={key}></ExampleScreen>
+
+
+            )
+          }
+        })
+      )
+
+    }
+    )
+    return (
+      <ScrollView horizontal={true} pagingEnabled={true}>
+        {curRates}
+      </ScrollView>
+    )
+
+  }
+
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -48,36 +82,46 @@ export default class HomeScreen extends React.Component {
         </View>
       )
     } else {
-      const keys = Object.keys(code2);
 
-      const curRates = this.state.dataSource.map((val, key) => {
-        return (
-          keys.map((item, index) => {
-            if (val.code === item) {
 
-              return (
-                <ExampleScreen key={key} data={val} index={key} navigasyon={navigate}></ExampleScreen>
-              )
-            }
-          })
-        )
+      const currr = this.currencyRefresh(navigate)
+      // const curRates = this.state.dataSource.map((val, key) => {
+      //   return (
+      //     keys.map((item, index) => {
+      //       if (val.code === item) {
+      //         return (
+      //           <ExampleScreen key={index} data={val} index={key} navigasyon={navigate}></ExampleScreen>
 
-      }
+
+      //         )
+      //       }
+      //     })
+      //   )
+
+      // }
+      // )
+
+
+
+
+
+      return (<View>
+        <NavigationEvents
+          onDidFocus={() => {
+            this.databaseRefresh();
+            console.log("yenilendi");
+          }
+          }
+        />
+        <View>{currr}</View>
+      </View>
+
+
+
+
       )
-
-
-
-
-
-      return (
-        <ScrollView horizontal={true} pagingEnabled={true}>
-          {curRates}
-        </ScrollView>
-      )
-
-
-
     }
   }
 }
+
 
