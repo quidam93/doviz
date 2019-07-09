@@ -12,14 +12,12 @@ export default class HomeScreen extends React.Component {
     this.state = {
       isLoading: true,
       dataSource: null,
+      refresh: 0,
+      databaseKeys: {}
     }
   }
 
-  async databaseRefresh() {
-    code = await AsyncStorage.getItem("code");
-    code2 = await JSON.parse(code);
-    console.log(code2);
-  }
+
 
   async componentDidMount() {
     code = await AsyncStorage.getItem("code");
@@ -43,24 +41,29 @@ export default class HomeScreen extends React.Component {
 
 
   }
+  async databaseRefresh() {
+    code3 = await AsyncStorage.getItem("code");
+    code4 = await JSON.parse(code3);
+    console.log("yeni", code4);
+    this.setState({
+      databaseKeys: code4
+    })
+
+  }
 
 
-  currencyRefresh = (key) => {
-
-    const keys = Object.keys(code2);
+  currencyRefresh = (key, key5) => {
+    const keys = Object.keys(key5);
     const curRates = this.state.dataSource.map((val, key1) => {
       return (
         keys.map((item, index) => {
           if (val.code === item) {
             return (
               <ExampleScreen key={index} data={val} index={key1} navigasyon={key}></ExampleScreen>
-
-
             )
           }
         })
       )
-
     }
     )
     return (
@@ -83,33 +86,22 @@ export default class HomeScreen extends React.Component {
       )
     } else {
 
+      if (this.state.refresh === 1) {
+        currr = this.currencyRefresh(navigate, this.state.databaseKeys)
+      }
+      else {
+        currr = this.currencyRefresh(navigate, code2)
 
-      const currr = this.currencyRefresh(navigate)
-      // const curRates = this.state.dataSource.map((val, key) => {
-      //   return (
-      //     keys.map((item, index) => {
-      //       if (val.code === item) {
-      //         return (
-      //           <ExampleScreen key={index} data={val} index={key} navigasyon={navigate}></ExampleScreen>
-
-
-      //         )
-      //       }
-      //     })
-      //   )
-
-      // }
-      // )
-
-
-
-
+      }
 
       return (<View>
         <NavigationEvents
           onDidFocus={() => {
             this.databaseRefresh();
             console.log("yenilendi");
+            this.setState({
+              refresh: 1
+            })
           }
           }
         />

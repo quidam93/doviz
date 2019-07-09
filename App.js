@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, AsyncStorage } from 'react-native';
+import {AsyncStorage } from 'react-native';
 import AppRouter from './src/routes/router'
 
 export default class App extends React.Component {
@@ -21,7 +21,3 @@ export default class App extends React.Component {
 
     }
   }
-
-const style = {
-  
-}

@@ -14,7 +14,8 @@ class CurrencyScreen extends Component {
         this.state = {
             isLoading: true,
             dataSource: null,
-            code: {}
+            code: {},
+            code2:{}
         }
     }
 
@@ -48,12 +49,25 @@ class CurrencyScreen extends Component {
                 [key]: key
             }
             Object.assign(this.state.code, deneme1)
-
         }
 
         await AsyncStorage.setItem('code', JSON.stringify(this.state.code));
     }
 
+    removeStorage = async (key)=>{
+        const curKeys= Object.keys(this.state.code);
+        curKeys.map((item,index)=>{
+            if (item!==key) {
+                const deneme2 = {
+                    [item]: item
+                }
+                Object.assign(this.state.code2, deneme2)
+            } 
+            
+        })
+        await AsyncStorage.setItem('code', JSON.stringify(this.state.code2));
+    }
+    
     render() {
 
         return (
@@ -62,14 +76,19 @@ class CurrencyScreen extends Component {
                     this.state.dataSource && this.state.dataSource.map((item, key) =>
                         <View key={key} style={{ height: 50, width: "100%", borderWidth: 1, borderColor: "red", margin: 5, flexDirection: "row", justifyContent: "space-evenly", alignContent: "center" }}>
                             <Text>
-                                {
-                                    item.name
-                                }
+                                {item.name}
                             </Text>
                             <TouchableOpacity onPress={() => this.storgeSave(item.code)}>
                                 <View style={{ width: 40, height: "100%", backgroundColor: "green", }}>
                                     <Text>
                                         +
+                            </Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.removeStorage(item.code)}>
+                            <View style={{ width: 40, height: "100%", backgroundColor: "red", }}>
+                                    <Text>
+                                        -
                             </Text>
                                 </View>
                             </TouchableOpacity>
