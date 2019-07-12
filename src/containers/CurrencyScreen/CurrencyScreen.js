@@ -15,14 +15,12 @@ class CurrencyScreen extends Component {
             isLoading: true,
             dataSource: null,
             code: {},
-            code2:{}
         }
     }
 
     async componentDidMount() {
         deneme = await AsyncStorage.getItem('code');
         deneme2 = await JSON.parse(deneme)
-
         this.setState({
             code: deneme2
         })
@@ -34,16 +32,12 @@ class CurrencyScreen extends Component {
                     dataSource: ResponseJson,
                 })
             }))
-
             .catch((error) => {
                 console.log(error)
             })
-
-
     }
 
     storgeSave = async (key) => {
-
         if (typeof this.state.code === "object") {
             const deneme1 = {
                 [key]: key
@@ -54,49 +48,61 @@ class CurrencyScreen extends Component {
         await AsyncStorage.setItem('code', JSON.stringify(this.state.code));
     }
 
-    removeStorage = async (key)=>{
-        const curKeys= Object.keys(this.state.code);
-        curKeys.map((item,index)=>{
-            if (item!==key) {
-                const deneme2 = {
-                    [item]: item
-                }
-                Object.assign(this.state.code2, deneme2)
-            } 
-            
+    removeStorage = async (key) => {
+        refreshedStorage = await AsyncStorage.getItem('code');
+        refreshedStorage2 = await JSON.parse(refreshedStorage)
+        this.setState({
+            code: refreshedStorage2
         })
-        await AsyncStorage.setItem('code', JSON.stringify(this.state.code2));
+        const prop = key
+        const newCode = Object.keys(this.state.code).reduce((object, key) => {
+            if (key !== prop) {
+                object[key] = this.state.code[key]
+            }
+            return object
+        }, {})
+        this.setState({
+            code: newCode
+        })
+        await AsyncStorage.setItem('code', JSON.stringify(this.state.code));
     }
-    
     render() {
 
         return (
-            <ScrollView>
-                {
-                    this.state.dataSource && this.state.dataSource.map((item, key) =>
-                        <View key={key} style={{ height: 50, width: "100%", borderWidth: 1, borderColor: "red", margin: 5, flexDirection: "row", justifyContent: "space-evenly", alignContent: "center" }}>
-                            <Text>
-                                {item.name}
+<SafeAreaView style={{backgroundColor:"#d1ffff"}}>
+    <ScrollView>
+        {
+        this.state.dataSource && this.state.dataSource.map((item, key) =>
+        <LinearGradient key={key} colors={['#d1ffff', "#a5f2f2", '#d1ffff']}>
+            <View  style={{ flex: 1, height: 50, width: "100%",borderBottomWidth:1,borderBottomColor:"#334242" ,margin: 5, flexDirection: "row" }}>
+                <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>
+                    <Text style={{ alignSelf: "baseline", paddingLeft: 10, fontFamily: "Cochin", fontSize: 22 }}>
+                        {item.name}
+                    </Text>
+                </View>
+                <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", alignItems: "center" }}>
+                    <TouchableOpacity onPress={() => this.storgeSave(item.code)}>
+                        <View style={{ width: 40, height: 40, backgroundColor: "#d5ffad", alignItems: "center", justifyContent: "center", borderRadius: 20 }}>
+                            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                                +
                             </Text>
-                            <TouchableOpacity onPress={() => this.storgeSave(item.code)}>
-                                <View style={{ width: 40, height: "100%", backgroundColor: "green", }}>
-                                    <Text>
-                                        +
-                            </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.removeStorage(item.code)}>
-                            <View style={{ width: 40, height: "100%", backgroundColor: "red", }}>
-                                    <Text>
-                                        -
-                            </Text>
-                                </View>
-                            </TouchableOpacity>
                         </View>
-                    )
-                }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.removeStorage(item.code)}>
+                        <View style={{ width: 40, height: 40, backgroundColor: "#ff4f6f", alignItems: "center", justifyContent: "center", borderRadius: 20 }}>
+                            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                                -
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </LinearGradient>
+        )
+        }
+    </ScrollView>
+</SafeAreaView>
 
-            </ScrollView>
         )
     }
 }
